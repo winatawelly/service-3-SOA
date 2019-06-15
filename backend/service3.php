@@ -5,6 +5,21 @@ use Psr\Http\Message\ResponseInterface as Response;
 require 'Slim/vendor/autoload.php';
 require 'connect.php';
 $app = new \Slim\App;
+
+$app->get("billing/internet/unpaid/{customer_id}", function($request,$response,$args){
+    $customer_id = $args['customer_id'];
+    global  $conn;
+    $sql = "SELECT * from customer WHERE customer_id = '$customer_id'";
+    $result = $conn->query($sql);
+    $rows = mysqli_fetch_assoc($result);
+    echo $rows;
+
+});
+
+
+
+
+
 /*
 $app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
     $name = $args['name'];
@@ -114,10 +129,6 @@ $app->put('/transaction/complete', function($request,$response,$args){
     }
 
 });
-
-
-
-
 $app->run();
 
 ?>
