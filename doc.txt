@@ -1,0 +1,96 @@
+service 3 , internet dan tv kabel
+
+customer_number dapat dilihat pada database service ini , pada table customer
+base url : soa/backend/service3.php
+
+- get : billing/internet/unpaid/{customer_number}
+ganti "internet" dengan "tv" pada url ketika get tv
+
+response success:
+{
+code": "success",
+"message": "Your payment request has been made, please complete the payment to finish this transaction",
+"bill_id": "billfirstMedia000272019",
+"tipe": "internet",
+"provider": "firstMedia",
+"price": "200000",
+"month": "7",
+"year": "2019"
+}
+//bill_id akan ter created jika proses ini succes
+
+
+response failed :
+{
+"code": "failed",
+"message": "Your customer bill doesnt exist or already paid"
+}
+
+------------------------------------------------------------------------------
+
+- get : billing/internet/completed/{customer_number}
+ganti "internet" dengan "tv" pada url ketika get tv
+
+response success :
+{
+"code": "success",
+"message": "details",
+"customer_number": "firstMedia000172019",
+"tipe": "internet",
+"provider": "firstMedia",
+"price": "200000",
+"month": "7",
+"year": "2019",
+"status": "lunas"
+}
+
+response gagal : 
+{
+"code": "failed",
+"message": "Your customer number doesnt exist or hasnt been paid, please check again"
+}
+
+
+-------------------------------------------------------------------------------
+
+ - get : /billing/internet/{bill_id}
+ganti "internet" dengan "tv" untuk put tv
+service ini untuk diakses oleh service 6 untuk mendapatkan bill detail
+
+response success :
+{
+"code": "success",
+"message": "bill details",
+"bill_id": "billfirstMedia000472019",
+"tipe": "internet",
+"provider": "firstMedia",
+"price": "200000",
+"month": "7",
+"year": "2019",
+"status": "belum_lunas",
+"date_made": "2019-06-15 12:18:50",
+"date_complete": null
+}
+
+response failed :
+{
+"code": "failed",
+"message": "Your bill doesnt exist or already paid"
+}
+-------------------------------------------------------------------------------
+
+ - put : /billing/internet/{bill_id}
+ganti "internet" dengan "tv" untuk put tv
+z
+respose success :
+{
+"code": "success",
+"message": "Your transaction is now complete",
+"bill_id": "billfirstMedia000372019"
+}
+
+response failed :
+{
+"code": "failed",
+"message": "Your customer bill doesnt exist or already paid"
+}
